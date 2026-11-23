@@ -7,6 +7,16 @@ public class RelationManager : MonoBehaviour
     private Dictionary<string, int> relations = new();
     private HashSet<string> alliances = new();
 
+    private void SetStartValues()
+    {
+        ChangeRelation("Ogres", "Elves", -40);
+        ChangeRelation("Humans", "Elves", -10);
+        ChangeRelation("Elves", "Gnomes", 20);
+        ChangeRelation("Humans", "Ogres", -50);
+        ChangeRelation("Humans", "Gnomes", 30);
+        ChangeRelation("Ogres", "Gnomes", -20);
+    }
+
     public bool IsAllied(string a, string b)
     {
         return alliances.Contains(MakeKey(a, b));
@@ -49,12 +59,13 @@ public class RelationManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        ChangeRelation("Humans", "Ogres", 10);
-        ChangeRelation("Humans", "Elves", 70);
-        Debug.Log(GetRelation("Ogres", "Humans"));
-        Debug.Log(TryMarry("Humans", "Ogres"));
-        Debug.Log(TryMarry("Elves", "Humans"));
-        Debug.Log(IsAllied("Humans", "Elves"));
+        SetStartValues();
+        GiveGift("Humans", "Gnomes");
+        GiveGift("Humans", "Gnomes");
+        GiveGift("Humans", "Gnomes");
+        
+        Debug.Log(TryMarry("Humans", "Gnomes"));
+        Debug.Log(IsAllied("Gnomes", "Humans"));
         
     }
 
